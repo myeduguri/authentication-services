@@ -28,7 +28,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo 'Building Docker image...'
-                sh """
+                bat """
                 docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
                 """
             }
@@ -37,7 +37,7 @@ pipeline {
             steps {
                 echo 'Pushing Docker image to Docker Hub...'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh '''
+                    bat '''
                         echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
                         docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
                     '''
@@ -47,7 +47,7 @@ pipeline {
         stage('Deploy to Minikube') {
             steps {
                 echo 'Deploying to Minikube...'
-                sh """
+                bat """
                 kubectl apply -f kubernetes/authentication-services-deployment.yaml
                 kubectl apply -f kubernetes/authentication-services-service.yaml
                 kubectl apply -f kubernetes/authentication-services-ingress.yaml
