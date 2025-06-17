@@ -26,6 +26,7 @@ public class AuthenticationController {
 
     @PostMapping
     public Mono<AuthenticationResponse> createAuthenticationToken(@RequestBody Mono<AuthenticationRequest> authenticationRequestMono) {
+    System.out.println(" In COntroller ");	
         return authenticationRequestMono
                 .flatMap(authenticationRequest ->
                         generateTokenUseCase.execute(authenticationRequest.getUsername(), authenticationRequest.getPassword())
