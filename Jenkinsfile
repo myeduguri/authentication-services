@@ -22,7 +22,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
         stage('Build Docker Image') {
