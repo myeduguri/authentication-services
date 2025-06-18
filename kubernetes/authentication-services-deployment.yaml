@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: authentication-services
-          image: wxesquevixos/authentication-services:latest
+          image: myeduguri383/authentication-services:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
