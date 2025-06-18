@@ -34,17 +34,6 @@ pipeline {
                 """
             }
         }
-        stage('Push Docker Image') {
-            steps {
-                echo 'Pushing Docker image to Docker Hub...'
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    bat '''
-                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                        docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
-                    '''
-                }
-            }
-        }
         stage('Deploy to Minikube') {
             steps {
                 echo 'Deploying to Minikube...'
